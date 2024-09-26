@@ -25,12 +25,13 @@ import React from 'react';
 import './BlocklyComponent.css';
 import {useEffect, useRef} from 'react';
 
-import Blockly from 'blockly/core';
+import * as Blockly from 'blockly/core';
 import {javascriptGenerator} from 'blockly/javascript';
-import locale from 'blockly/msg/en';
+import * as En from 'blockly/msg/en';
+// import locale from 'blockly/msg/en';
 import 'blockly/blocks';
 
-Blockly.setLocale(locale);
+Blockly.setLocale(En);
 
 function BlocklyComponent(props) {
   const blocklyDiv = useRef();
