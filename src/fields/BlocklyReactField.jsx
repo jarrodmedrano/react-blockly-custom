@@ -24,12 +24,13 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import * as Blockly from 'blockly/core';
 
 class BlocklyReactField extends Blockly.Field {
   SERIALIZABLE = true;
+  root;
 
   static fromJson(options) {
     // `this` might be a subclass of BlocklyReactField if that class doesn't
@@ -38,8 +39,11 @@ class BlocklyReactField extends Blockly.Field {
   }
 
   showEditor_() {
+    console.log('i am clicked');
     this.div_ = Blockly.DropDownDiv.getContentDiv();
-    ReactDOM.render(this.render(), this.div_);
+    this.root = ReactDOM.createRoot(this.div_);
+    this.root.render(this.render());
+    //ReactDOM.render(this.render(), this.div_);
 
     var border = this.sourceBlock_.style.colourTertiary;
     border = border.colourBorder || border.colourLight;
@@ -52,7 +56,7 @@ class BlocklyReactField extends Blockly.Field {
   }
 
   dropdownDispose_() {
-    ReactDOM.unmountComponentAtNode(this.div_);
+    this.root.unmount();
   }
 
   render() {
